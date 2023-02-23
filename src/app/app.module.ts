@@ -12,6 +12,11 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {  MatInputModule } from "@angular/material/input";
 import { LoginComponent } from './pages/login/login.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ConfigService } from './service/config/config.service';
+import { AuthService } from './service/auth/auth.service';
+import { AuthentificationInterceptor } from './security/authentification.interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,6 +26,9 @@ import { LoginComponent } from './pages/login/login.component';
     LoginComponent
   ],
   imports: [
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatBadgeModule,
     MatSlideToggleModule,
@@ -30,7 +38,16 @@ import { LoginComponent } from './pages/login/login.component';
     AppRoutingModule,
     ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    HttpClientModule,
+    ConfigService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthentificationInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   exports: [
    
