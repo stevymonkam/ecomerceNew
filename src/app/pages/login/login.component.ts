@@ -40,10 +40,17 @@ export class LoginComponent implements OnInit {
    async login() {
       this.loading = true;
       await this.authService.login(this.fa.value.username, this.fa.value.password).then((res: any) => { 
-      this.router.navigate(['products']);
-      localStorage.setItem("token", res.accessToken);
-      localStorage.setItem("idUser", res.id);
-      //localStorage.setItem("idRole", res.role[0].id);   
+        console.log(res);
+        console.log(res.accessToken);
+        console.log(res.id);
+        console.log(res.username);
+        this.router.navigate(['home']);
+        localStorage.setItem("token", res.accessToken);
+        localStorage.setItem("idUser", res.id);
+        //localStorage.setItem("idRole", res.role[0].id);
+        console.log('ecco id role');
+        console.log(localStorage.getItem('idRole'));
+        console.log(localStorage.getItem("idUser"));  
     }).catch((error: any) => {
       console.log('111111111111111111111111');
       console.log('je suis dans dans errorror');
